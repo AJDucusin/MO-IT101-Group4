@@ -84,7 +84,7 @@ public class MotorPH {
         // After mag log-in ni user, ivavalidate naman nya ang position ng user sa company.
         // Ang CEO, HR Manager, Accounting Head, lang ang may privilage sa mga sensitive data at pages.
         if ("Chief Executive Officer".equals(logInUserPosition) || "HR Manager".equals(logInUserPosition) || "Accounting Head".equals(logInUserPosition)) {
-            menuBoard.privilageUsers(logInUserFirstName, logInUserLastName);
+            menuBoard.privilageUsers(logInUserFirstName, logInUserLastName, Username, Password);
         // Ang mga probataionary employee ay hindi makakapag log-in sa dashboard. Time card lang muna ang gagamitin.
         } else if ("Probationary".equals(logInUserStatus)) {
             System.out.println(" ");

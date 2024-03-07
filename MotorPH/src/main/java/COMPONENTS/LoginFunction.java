@@ -18,7 +18,7 @@ public class LoginFunction {
     public String getLoginInfo(String enteredUsername, String enteredPassword) {
         User getFullname = AdminService.loginUser(enteredUsername, enteredPassword);
         
-        return getFullname.getFirstName() +getFullname.getLastName();
+        return getFullname.getFirstName() +" " +getFullname.getLastName();
     }
     
 }

@@ -11,14 +11,14 @@ import java.io.IOException;
 
 public class MenuBoard {
     
-    public void privilageUsers(String logInUserFirstName, String logInUserLastName) throws IOException {
+    public void privilageUsers(String logInUserFirstName, String logInUserLastName, String Username, String Password) throws IOException, InterruptedException {
         
         Scanner userInput = new Scanner(System.in);
 
         CreateNewUser createNewUser = new CreateNewUser();
         int logInUserAction = 0;
         
-        while (logInUserAction != 6) {
+        while (logInUserAction != 7) {
             System.out.println(" ");
             System.out.println("                   Choose your action:                   ");
             System.out.println("1 Time In / Time Out\t\t\t4 Edit Employee's Details");
@@ -40,16 +40,18 @@ public class MenuBoard {
                 EditEmployeeDetails.editEmpByID();
             } else if (logInUserAction == 5) {
                 createNewUser.addNewUser();
+            } else if (logInUserAction == 6) {
+                PrintPaySlip.employeePaySlip(Username, Password);
             } else if (logInUserAction == 99) {
                 Credits.CCTO();
             }
         }
     }
     
-    public void regularUser(String logInUserFirstName, String logInUserLastName, String Username, String Password) throws IOException {
+    public void regularUser(String logInUserFirstName, String logInUserLastName, String Username, String Password) throws IOException, InterruptedException {
         
         User profileOfLogInUser = AdminService.loginUser(Username, Password);
-        CreateNewUser createNewUser = new CreateNewUser();
+        //CreateNewUser createNewUser = new CreateNewUser();
         Scanner userInput = new Scanner(System.in);
         
         int logInUserID = profileOfLogInUser.getUserId();
@@ -78,7 +80,7 @@ public class MenuBoard {
             } else if (logInUserAction == 99) {
                 Credits.CCTO();
             } else if (logInUserAction == 4) {
-                PrintPaySlip.employeePaySlip();
+                PrintPaySlip.employeePaySlip(Username, Password);
             }
         }
     }

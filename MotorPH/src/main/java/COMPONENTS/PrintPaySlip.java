@@ -17,10 +17,7 @@ public class PrintPaySlip {
         String empPosition = getEmpDetails.getDesignation();
         double empMonthlySalary = getEmpDetails.getBasicSalary();
         int empRiceSubsidy = getEmpDetails.getRiceSubsidy();
-        int empPhoneAllowance = getEmpDetails.getPhoneAllowance();
-        int empClothingAllowance = getEmpDetails.getClothingAllowance();
         
-        int empTotalAllowance = empRiceSubsidy+empPhoneAllowance+empClothingAllowance;
         
         
         // Width
@@ -31,6 +28,7 @@ public class PrintPaySlip {
         int period = 0;
         String startDate = null;
         String endDate = null;
+        int empTotalAllowance = 0;
     
         
         System.out.print("Single Employee? All Employee? S/A: ");

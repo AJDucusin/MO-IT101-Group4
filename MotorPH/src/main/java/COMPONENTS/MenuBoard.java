@@ -21,9 +21,10 @@ public class MenuBoard {
         while (logInUserAction != 7) {
             System.out.println(" ");
             System.out.println("                   Choose your action:                   ");
-            System.out.println("1 Time In / Time Out\t\t\t4 Edit Employee's Details");
-            System.out.println("2 View Employee's Time Log\t\t5 Create New Employee");
-            System.out.println("3 View Employee's Personal Details\t6 Exit Portal");
+            System.out.println("1 Time In / Time Out\t\t\t5 Edit Employee's Details");
+            System.out.println("2 View Employee's Time Log\t\t6 Print Pay Slip");
+            System.out.println("3 View Employee's Personal Details\t7 Exit Portal");
+            System.out.println("4 Edit Employee's Details");
             System.out.print("Action: ");
             logInUserAction = userInput.nextInt();
             System.out.println("************************************************************");
@@ -61,7 +62,7 @@ public class MenuBoard {
         
             System.out.println(" ");
             System.out.println("                   Choose your action:                   ");
-            System.out.println("1 Time In / Time Out\t\t\t4 Print Payslip");
+            System.out.println("1 Time In / Time Out\t\t\t4 View Payslip");
             System.out.println("2 View My Time Log\t\t\t5 Exit Portal");
             System.out.println("3 View My Personal Details");
             System.out.print("Action: ");

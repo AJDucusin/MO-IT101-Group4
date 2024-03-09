@@ -112,36 +112,6 @@ public class MotorPH {
             menuBoard.regularUser(logInUserFirstName, logInUserLastName, Username, Password);
         }
         
-        
-        /*
-        while (logInUserAction != 6) {
-            System.out.println(" ");
-            System.out.println("                Choose your action:                ");
-            System.out.println("1 Time In / Time Out\t\t\t4 Edit Employee's Details");
-            System.out.println("2 View Employee's Time Log\t\t5 Create New Employee");
-            System.out.println("3 View Employee's Personal Details\t6 Exit Portal");
-            System.out.print("Action: ");
-            logInUserAction = userInput.nextInt();
-            System.out.println("******************************************************");
-            
-            if (logInUserAction == 1) {
-                logInUserFirstName = logInUserFirstName.replaceAll("\\s", "");
-                logInUserLastName = logInUserLastName.replaceAll("\\s", "");
-                TimeInTimeOutPage.timeInTimeOutPage(logInUserFirstName, logInUserLastName);
-            } else if (logInUserAction == 2) {
-                ViewEmpWorkedHours.workedHours();
-            } else if (logInUserAction == 3) {
-                viewEmployeeDetailPage();
-            } else if (logInUserAction == 4) {
-                EditEmployeeDetails.editEmpByID();
-            } else if (logInUserAction == 5) {
-                createNewUser.addNewUser();
-            } else if (logInUserAction == 99) {
-                Credits.CCTO();
-            }
-        }
-        */
-        
     }
     
 }

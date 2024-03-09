@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileReader; // Ito ang class sa loob ng java framework na responsible sa pag-read ng mga files.
 import java.time.format.DateTimeFormatter;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -17,11 +17,12 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 public class TimeService {
-    private static final String filePath = "C:\\Users\\ducus\\Desktop\\MainProject_240224_ADJUSTED\\MainProject_240224\\MotorPH_240224_ADJUSTED\\MotorPH\\src\\main\\java\\TimeKeeper\\time_keeper_file.txt";
+    // Nilagay ko sa 'private static final' ang String filePath, para dito lang magamit ang variable na to.
+    private static final String filePath = "C:\\Users\\ducus\\Desktop\\MO-IT101-Group4\\MotorPH\\src\\main\\java\\TimeKeeper\\time_keeper_file.txt";
     
     public void timeIn(String workType, String fullName) throws IOException {
         LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // Ito ang nag didictate kung anong format ng time
         String timeFormatted = currentTime.format(timeFormatter);
         
         Path path = Paths.get(filePath);

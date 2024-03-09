@@ -121,7 +121,7 @@ OUT 2024-02-12 16:00:00 ManuelII Garcia
 IN 2024-02-12 08:00:00 Cydney Rosario
 B1 2024-02-12 12:00:00 Cydney Rosario
 B1IN 2024-02-12 13:00:00 Cydney Rosario
-OUT 2024-02-12 17:00:00 Cydney Rosario
+OUT 2024-02-12 18:00:00 Cydney Rosario
 IN 2024-02-13 08:30:00 ManuelII Garcia
 B1 2024-02-13 12:00:00 ManuelII Garcia
 B1IN 2024-02-13 14:00:00 ManuelII Garcia
@@ -133,7 +133,7 @@ OUT 2024-02-13 17:30:00 BiancaSofia Aquino
 IN 2024-02-13 08:00:00 Cydney Rosario
 B1 2024-02-13 12:00:00 Cydney Rosario
 B1IN 2024-02-13 13:00:00 Cydney Rosario
-OUT 2024-02-13 17:00:00 Cydney Rosario
+OUT 2024-02-13 18:00:00 Cydney Rosario
 IN 2024-02-14 08:30:00 ManuelII Garcia
 B1 2024-02-14 12:00:00 ManuelII Garcia
 B1IN 2024-02-14 14:00:00 ManuelII Garcia
@@ -278,3 +278,4 @@ IN 2024-02-29 08:00:00 Cydney Rosario
 B1 2024-02-29 12:00:00 Cydney Rosario
 B1IN 2024-02-29 13:00:00 Cydney Rosario
 OUT 2024-02-29 17:00:00 Cydney Rosario
+IN 2024-03-09 16:18:49 Cydney Rosario

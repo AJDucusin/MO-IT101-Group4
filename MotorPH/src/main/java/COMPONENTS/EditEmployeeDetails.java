@@ -23,7 +23,7 @@ public class EditEmployeeDetails {
             String currentBirthday = employee.getBirthday();
             String currentPhone = employee.getPhone();
             String currentAddress = employee.getAddress();
-                        
+            
             int currentWidth = Math.max(currentFirstName.length(), Math.max(currentLastName.length(), Math.max(currentBirthday.length(), Math.max(currentPhone.length(), currentAddress.length()))));
             System.out.printf("Field:   \t%-" +currentWidth +"s","Current: ");
             System.out.println("Changes: ");

@@ -106,7 +106,7 @@ public class ViewEmpWorkedHours {
         System.out.print("yyyy-MM-dd: \t");
         endDate = scanner.nextLine();
         
-        // Starting from here, puwede nyo ng i-copy tong code na ito for salary computation
+        // Nag declare ako ng mga variable na gagamitin ko throughout the class.
         double totalWorkedHours = 0;
         double totalBreakHours = 0;
         double totalHoursDetailed = 0;
@@ -115,7 +115,7 @@ public class ViewEmpWorkedHours {
         LocalTime breakStart = null;
         LocalTime breakEnd = null;
     
-        List<Time> filteredTimeList = TimeService.viewTimeByRange(logInUserID, startDate, endDate);
+        List<Time> filteredTimeList = TimeService.viewTimeByRange(logInUserID, startDate, endDate); // Ang 'viewTimeByRange' class ang responsible sa pag-kuha ng time-in time-out ni user
         
         for (int i = 0; i < filteredTimeList.size(); i++) {
             Time timeEntry = filteredTimeList.get(i);
@@ -151,7 +151,7 @@ public class ViewEmpWorkedHours {
                 }
                 
                 totalHoursDetailed = (totalWorkedHours-totalBreakHours)/60;
-                
+                String salo = "salo";
                 if(totalHoursDetailed < 8) {
                     double undertime = 8-Math.round(totalHoursDetailed*100.00)/100.00;
                     double workedHoursDD = Math.round(totalHoursDetailed*100.00)/100.00;
@@ -165,12 +165,75 @@ public class ViewEmpWorkedHours {
                 }
                 System.out.println("----------------------------------");
             }
-            // Dito ko nireset ang lahat ng mga nakuhang time, para mag accumulate ulit ang time buburahin lang to.
+            // Dito ko nireset ang lahat ng mga nakuhang time, para hindi mag accumulate ang time and values. para mag accumulate ulit ang time buburahin lang to.
             totalWorkedHours = 0;
             totalBreakHours = 0;
             totalHoursDetailed = 0;
         }
 
+    }
+    
+    
+    
+    // Ang 'getOvertime' method ay kinuha ko lang sa 'workedHoursDetailed' method.
+    public static double getOvertime(int logInUserID, String startDate, String endDate) throws IOException {
+        
+        double overtimeHours = 0.00;
+        LocalTime workStart = null;
+        LocalTime workEnd = null;
+        LocalTime breakStart = null;
+        LocalTime breakEnd = null;
+        double totalWorkedHours = 0;
+        double totalBreakHours = 0;
+        double totalHoursDetailed = 0;
+        
+        
+        List<Time> filteredTimeList = TimeService.viewTimeByRange(logInUserID, startDate, endDate); // Ang 'viewTimeByRange' class ang responsible sa pag-kuha ng time-in time-out ni user
+        
+        for (int i = 0; i < filteredTimeList.size(); i++) {
+            Time timeEntry = filteredTimeList.get(i);
+            String status = timeEntry.getWorkStatus();
+            LocalTime time = LocalTime.parse(timeEntry.getWorkTime());
+            String workedDate = timeEntry.getWorkDate();
+
+            
+            if (status.equals("IN")) {
+                workStart = time;
+            } else if (status.equals("B1")) {
+                breakStart = time;
+            } else if (status.equals("B1IN")) {
+                breakEnd = time;
+            } else if (status.equals("OUT")) {
+                workEnd = time;
+                
+                if (workStart != null && workEnd != null) {
+                    Duration workedHours = Duration.between(workStart, workEnd);
+                    totalWorkedHours += workedHours.toMinutes();
+                    workStart = null;
+                    workEnd = null;
+                }
+                
+                if (breakStart != null && breakEnd != null) {
+                    Duration breakHours = Duration.between(breakStart, breakEnd);
+                    totalBreakHours += breakHours.toMinutes();
+                    breakStart = null;
+                    breakEnd = null;
+                }
+                
+                totalHoursDetailed = (totalWorkedHours-totalBreakHours)/60;
+                
+                // Ito lang ang dinagdag ko para makuha ko ang overtime.
+                if(totalHoursDetailed > 8) {
+                    double hoursMinusEight = totalHoursDetailed-8;
+                    overtimeHours += hoursMinusEight;
+                }
+                
+            }
+            totalWorkedHours = 0;
+            totalBreakHours = 0;
+            totalHoursDetailed = 0;
+        }
+        return overtimeHours;
     }
     
 }

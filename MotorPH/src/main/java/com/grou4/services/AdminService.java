@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class AdminService {
     
     public static User loginUser(String username, String password) {
+        
         User user = null;
         try (Connection connection = DatabaseConnection.connect();
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {

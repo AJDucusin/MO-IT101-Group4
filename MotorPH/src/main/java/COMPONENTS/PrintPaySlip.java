@@ -2,10 +2,11 @@ package COMPONENTS;
 import java.util.Scanner;
 import constructor.User;
 import com.grou4.services.AdminService;
+import java.io.IOException;
 
 public class PrintPaySlip {
     
-    public static void employeePaySlip(String Username, String Password) throws InterruptedException {
+    public static void employeePaySlip(String Username, String Password) throws InterruptedException, IOException {
         
         Scanner scanner = new Scanner(System.in);
         AdminService adminService = new AdminService();
@@ -14,6 +15,7 @@ public class PrintPaySlip {
         
         String fullName = getEmpDetails.getFirstName() +" " +getEmpDetails.getLastName();
         String empStatus = getEmpDetails.getStatus();
+        int empID = getEmpDetails.getUserId();
         String empPosition = getEmpDetails.getDesignation();
         double empMonthlySalary = getEmpDetails.getBasicSalary();
         int empRiceSubsidy = getEmpDetails.getRiceSubsidy();
@@ -67,7 +69,7 @@ public class PrintPaySlip {
             endDate = "2024-02-29";
         }
         
-        
+        double overtimeWorkedHours = ViewEmpWorkedHours.getOvertime(empID, startDate, endDate);
         
 /*1*/   System.out.println("***************************************************************************************************");
 /*2*/   System.out.println("*                                        Employee Pay Slip                                        *");
@@ -82,10 +84,10 @@ public class PrintPaySlip {
         System.out.println("");
 /*11*/  System.out.println("|----------------------------------------------------------------------------|");
 /*12*/  System.out.println("|                        |                        |                          | Gross Pay:\t21,000.00");
-/*13*/  System.out.println("| Overtime  Hrs   Pay    | Adjustments   Amount   | Deduction     Amount     | Deduction:\t9,200.00");
+/*13*/  System.out.println("|  Work     Hrs   Pay    | Adjustments   Amount   | Deduction     Amount     | Deduction:\t9,200.00");
 /*14*/  System.out.println("|----------------------------------------------------------------------------|");
 /*15*/  System.out.println("|  Regular  60    351.00 | 13Month       0.00     | Tax           4,200.00   |");
-/*16*/  System.out.println("|                        | Incentive     0.00     | SSS           500.00     | Net Pay:\t14,300.00");
+/*16*/  System.out.println("|  Overtime " +overtimeWorkedHours +"          | Incentive     0.00     | SSS           500.00     | Net Pay:\t14,300.00");
 /*17*/  System.out.println("|                        | Paid Leaves   0.00     | Philhealth    500.00     |");
 /*18*/  System.out.println("|                        | Holiday Pay   0.00     | Pag-Ibig      500.00     |");
 /*19*/  System.out.println("|                        | Others        0.00     | Tirediness    2,500.00   |");

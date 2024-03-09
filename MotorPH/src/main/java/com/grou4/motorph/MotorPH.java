@@ -1,45 +1,29 @@
 package com.grou4.motorph;
 
-import COMPONENTS.Credits;
-import COMPONENTS.ViewEmployeeDetails;
-import COMPONENTS.EditEmployeeDetails;
-import COMPONENTS.ViewEmpWorkedHours;
-import COMPONENTS.TimeInTimeOutPage;
-import COMPONENTS.CreateNewUser;
 import COMPONENTS.LoginFunction;
 import COMPONENTS.MenuBoard;
 import constructor.User;
-import constructor.Time;
-import com.grou4.services.TimeService;
 import com.grou4.services.AdminService;
 import java.util.Scanner;
-import java.util.List;
-import java.time.LocalDateTime;
+import COMPONENTS.ViewEmpWorkedHours;
 import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class MotorPH {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         
-        ViewEmployeeDetails viewEmployeeDetails = new ViewEmployeeDetails();
-        CreateNewUser createNewUser = new CreateNewUser();
-        LoginFunction loginFunction = new LoginFunction();
-        AdminService adminService = new AdminService();
-        TimeService TimeService = new TimeService();
+        LoginFunction loginFunction = new LoginFunction(); // Nag instanciate ako ng 'LoginFunction' para magamit sa MotorPH.java class (main) ko yung mga functions and code sa loob ng class
         Scanner userInput = new Scanner(System.in);
-        MenuBoard menuBoard = new MenuBoard();
-        MenuBoard myMenu = new MenuBoard();
+        MenuBoard menuBoard = new MenuBoard(); // Nag instanciate ako ng 'MenuBoard' para magamit sa MotorPH.java class (main) ko yung mga functions and code sa loob ng class
         
+        // nag declare ako ng mga variable na magagamit ko throughout this class
+        // Ang ibang String variable ay inasign ko sa 'null' just in case walang ma retrive ang program, meron paring mai-babatong value.
+        // Ang mga int variable ay inasign ko sa '0' just in case walang ma retrive ang program, meron aring mai-babatong value.
         String Username;
         String Password;
         String logInUserFirstName = null;
         String logInUserLastName = null;
-        String searchDate;
         String logInUserPosition = null;
         String logInUserStatus = null;
         int logInUserID = 0;
@@ -66,7 +50,7 @@ public class MotorPH {
         if (loginStatus) {
             System.out.println("******************************************************");
             System.out.println("Login successful!");
-            User profileOfLogInUser = AdminService.loginUser(Username, Password);
+            User profileOfLogInUser = AdminService.loginUser(Username, Password); // Ginamit ko ang loginUser class sa loob ng AdminService para ma retrive ang mga information ni user
             logInUserFirstName = profileOfLogInUser.getFirstName();
             logInUserLastName = profileOfLogInUser.getLastName();
             logInUserID = profileOfLogInUser.getUserId();
@@ -89,6 +73,7 @@ public class MotorPH {
         } else if ("Probationary".equals(logInUserStatus)) {
             System.out.println(" ");
             System.out.print("Unathorize access detected. ");
+            // Ang 'Thread.sleep();' class ay para i-slow down lang ang pag-read ng program. Ang number sa loob ay miliseconds
             Thread.sleep(1000);
             System.out.print(". ");
             Thread.sleep(1000);
@@ -111,7 +96,8 @@ public class MotorPH {
         } else if (!("Chief Executive Officer".equals(logInUserPosition) || "HR Manager".equals(logInUserPosition) || "Accounting Head".equals(logInUserPosition))) {
             menuBoard.regularUser(logInUserFirstName, logInUserLastName, Username, Password);
         }
-        
+
+
     }
     
 }

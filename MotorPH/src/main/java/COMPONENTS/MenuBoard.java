@@ -14,6 +14,8 @@ public class MenuBoard {
     public void privilageUsers(String logInUserFirstName, String logInUserLastName, String Username, String Password) throws IOException, InterruptedException {
         
         Scanner userInput = new Scanner(System.in);
+        User profileOfLogInUser = AdminService.loginUser(Username, Password);
+        int logInUserID = profileOfLogInUser.getUserId();
 
         CreateNewUser createNewUser = new CreateNewUser();
         int logInUserAction = 0;
@@ -76,7 +78,6 @@ public class MenuBoard {
             } else if (logInUserAction == 2) {
                 ViewEmpWorkedHours.workedHoursDetailed(logInUserID);
             } else if (logInUserAction == 3) {
-                //ViewEmployeeDetails.getEmployeePersonalDetail();
                 ViewEmployeeDetails.getMyPersonalDetail(logInUserID);
             } else if (logInUserAction == 99) {
                 Credits.CCTO();

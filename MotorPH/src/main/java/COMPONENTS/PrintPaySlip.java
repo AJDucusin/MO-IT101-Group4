@@ -18,28 +18,18 @@ public class PrintPaySlip {
         int empID = getEmpDetails.getUserId();
         String empPosition = getEmpDetails.getDesignation();
         double empMonthlySalary = getEmpDetails.getBasicSalary();
-        int empRiceSubsidy = getEmpDetails.getRiceSubsidy();
-        
-        
-        
-        // Width
-        int line10Width = 65;
         
         
         //char singleAll;
         int period = 0;
         String startDate = null;
         String endDate = null;
-        int empTotalAllowance = 0;
-    
-        
-        System.out.print("Single Employee? All Employee? S/A: ");
-        char singleAll = Character.toUpperCase(scanner.next().charAt(0));
-        while (singleAll != 'S' && singleAll != 'A') {
-            System.out.println("Please choose between S or A . . .");
-            System.out.print("Single Employee? All Employee? S/A: ");
-            singleAll = Character.toUpperCase(scanner.next().charAt(0));
-        }
+        double empTotalAllowance = 0;
+        double empTotalOvertimePay = 0;
+        double empGrossPay = 0;
+        double empTotalDeduction = 0;
+        double empNetPay = 0;
+        double empTotalBasicPay = 0;
         
         // >>>  mag lagay ng option: print current period? <<<
         
@@ -69,33 +59,68 @@ public class PrintPaySlip {
             endDate = "2024-02-29";
         }
         
-        double overtimeWorkedHours = ViewEmpWorkedHours.getOvertime(empID, startDate, endDate);
         
-/*1*/   System.out.println("***************************************************************************************************");
-/*2*/   System.out.println("*                                        Employee Pay Slip                                        *");
-/*3*/   System.out.println("|                                                                            |");
-/*4*/   System.out.println("| MotorPH Corporation  Group 4                                               |");
-/*5*/   System.out.println("| " +fullName +"\t\t\tPERIOD: " +startDate +" to " +endDate +"\t|");
-/*6*/   System.out.println("|                                                                            | Basic Pay:\t"+empMonthlySalary);
-/*7*/   System.out.println("==================================================================================================");
-/*8*/   System.out.println("| Employer: MotorPH\t\t\t\tStatus: " +empStatus +"\t\t     | Overtime:\t3,000.00");
-/*9*/   System.out.println("|----------------------------------------------------------------------------| 13th Month:\t0.00");
-/*10*/  System.out.printf("| Position: %1$-" +line10Width +"s| Allowance:\t%2$s", empPosition, empTotalAllowance);
+        
+        int line10Width = 70;  //<<< ito ay para lang sa with, "print with function".
+        double overtimeWorkedHours = ViewEmpWorkedHours.getOvertime(empID, startDate, endDate);
+        double totalWorkedHours = ViewEmpWorkedHours.returnWorkedHours(empID, startDate, endDate);
+        double totalUndertimeHours = ViewEmpWorkedHours.returnUndertimeHours(empID, startDate, endDate);
+        double halfPay = empMonthlySalary/2;
+        double hourlyRate = getEmpDetails.getHourlyRate();
+        double overtimeHourlyRate = hourlyRate * 2;
+        empTotalOvertimePay = overtimeWorkedHours * overtimeHourlyRate;
+        
+        double riceSubsidy = getEmpDetails.getRiceSubsidy();
+        double phoneSubsidy = getEmpDetails.getPhoneAllowance();
+        double clothSubsidy = getEmpDetails.getClothingAllowance();
+        empTotalAllowance = riceSubsidy + phoneSubsidy + clothSubsidy;
+        empTotalBasicPay = totalWorkedHours * hourlyRate;
+        
+        double sssDeduction = empTotalBasicPay * 0.04;
+        double philhealthDeduction = empTotalBasicPay * 0.04;
+        double pagibigDeduction = empTotalBasicPay * 0.04;
+        double taxDeduction = empTotalBasicPay * 0.12;
+        double undertimeDeduction = totalUndertimeHours * hourlyRate;
+        
+        empGrossPay = empTotalBasicPay + empTotalOvertimePay + empTotalAllowance;
+        empTotalDeduction = sssDeduction + philhealthDeduction + pagibigDeduction + taxDeduction + undertimeDeduction;
+        empNetPay = empGrossPay - empTotalDeduction;
+        
+        
+/*1*/   System.out.println("*****************************************************************************************************************");
+/*2*/   System.out.println("*                                               Employee Pay Slip                                               *");
+/*3*/   System.out.println("|                                                                                 |\t\t\t\t|");
+/*4*/   System.out.println("| MotorPH Corporation  Group 4                                                    |\t\t\t\t|");
+/*5*/   System.out.println("| " +fullName +"\t\t\tPERIOD: " +startDate +" to " +endDate +"\t  |\t\t\t\t|");
+/*6*/   System.out.printf("|                                                                                 | Basic Pay:\t%1$.2f\t|", empTotalBasicPay);
         System.out.println("");
-/*11*/  System.out.println("|----------------------------------------------------------------------------|");
-/*12*/  System.out.println("|                        |                        |                          | Gross Pay:\t21,000.00");
-/*13*/  System.out.println("|  Work     Hrs   Pay    | Adjustments   Amount   | Deduction     Amount     | Deduction:\t9,200.00");
-/*14*/  System.out.println("|----------------------------------------------------------------------------|");
-/*15*/  System.out.println("|  Regular  60    351.00 | 13Month       0.00     | Tax           4,200.00   |");
-/*16*/  System.out.println("|  Overtime " +overtimeWorkedHours +"          | Incentive     0.00     | SSS           500.00     | Net Pay:\t14,300.00");
-/*17*/  System.out.println("|                        | Paid Leaves   0.00     | Philhealth    500.00     |");
-/*18*/  System.out.println("|                        | Holiday Pay   0.00     | Pag-Ibig      500.00     |");
-/*19*/  System.out.println("|                        | Others        0.00     | Tirediness    2,500.00   |");
-/*20*/  System.out.println("|                        |                        | Loan          0.00       |");
-/*21*/  System.out.println("|                        |                        | Others        0.00       |");
-/*22*/  System.out.println("|                        |                        |                          |");
-/*23*/  System.out.println("|                        |                        |                          |");
-/*24*/  System.out.println("----------------------------------------------------------------------------------------------------");
+/*7*/   System.out.println("|===============================================================================================================|");
+/*8*/   System.out.printf("| Employer: MotorPH\t\t\t\tStatus: " +empStatus +"\t\t\t  | Overtime:\t%1$.2f\t\t|", empTotalOvertimePay);
+        System.out.println("");
+/*9*/   System.out.println("|---------------------------------------------------------------------------------| 13th Month:\t0.00\t\t|");
+/*10*/  System.out.printf("| Position: %1$-" +line10Width +"s| Allowance:\t%2$s\t\t|", empPosition, empTotalAllowance);
+        System.out.println("");
+/*11*/  System.out.println("|---------------------------------------------------------------------------------|\t\t\t\t|");
+/*12*/  System.out.printf("|\t\t\t\t|\t\t\t|\t\t\t  | Gross Pay:\t%1$.2f\t|", empGrossPay);
+        System.out.println("");
+/*13*/  System.out.printf("|  Work     Hrs\t\tPay\t| Adjustments   Amount\t| Deduction     Amount    | Deduction:\t%1$.2f\t\t|", empTotalDeduction);
+        System.out.println("");
+/*14*/  System.out.println("|---------------------------------------------------------------------------------|\t\t\t\t|");
+/*15*/  System.out.printf("|  Regular  %1$.2f\t%2$.2f\t| 13Month       0.00\t| Tax\t\t%3$.2f\t  |\t\t\t\t|", totalWorkedHours, hourlyRate, taxDeduction);
+        System.out.println("");
+/*16*/  System.out.printf("|  Overtime %1$.2f\t%2$.2f\t| Rice Subsidy  %3$.2f\t| SSS\t\t%4$.2f\t  | Net Pay:\t%5$.2f\t|", overtimeWorkedHours, overtimeHourlyRate, riceSubsidy, sssDeduction, empNetPay);
+        System.out.println("");
+/*17*/  System.out.printf("|\t\t\t\t| Phone Subsidy %1$.2f\t| Philhealth\t%2$.2f\t  |\t\t\t\t|", phoneSubsidy, philhealthDeduction);
+        System.out.println("");
+/*18*/  System.out.printf("|\t\t\t\t| Cloth Subsidy %1$.2f\t| Pag-Ibig\t%2$.2f\t  |\t\t\t\t|", clothSubsidy, pagibigDeduction);
+        System.out.println("");
+/*19*/  System.out.printf("|\t\t\t\t| Others\t0.00\t| Tirediness\t%1$.2f\t  |\t\t\t\t|", undertimeDeduction);
+        System.out.println("");
+/*20*/  System.out.println("|\t\t\t\t|\t\t\t| Loan\t\t0.00\t  |\t\t\t\t|");
+/*21*/  System.out.println("|\t\t\t\t|\t\t\t| Others\t0.00\t  |\t\t\t\t|");
+/*22*/  System.out.println("|\t\t\t\t|\t\t\t|\t\t\t  |\t\t\t\t|");
+/*23*/  System.out.println("|\t\t\t\t|\t\t\t|\t\t\t  |\t\t\t\t|");
+/*24*/  System.out.println("-----------------------------------------------------------------------------------------------------------------");
         System.out.println(" ");
         
     }
